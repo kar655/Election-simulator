@@ -3,7 +3,7 @@ package elections;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-public class PartyElector extends Elector {
+public class PartyElector extends Elector implements IPartyFilter {
 
     protected final String partyName;
 
@@ -16,7 +16,6 @@ public class PartyElector extends Elector {
     // candidates are in certain Party
     protected Stream<Candidate> voteFilter(Stream<Candidate> candidates) {
         candidates = super.voteFilter(candidates);
-        return candidates
-                .filter(c -> c.getPartyName().equals(this.partyName));
+        return partyFilter(candidates, this.partyName);
     }
 }
