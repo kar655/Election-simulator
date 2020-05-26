@@ -1,4 +1,6 @@
-package elections;
+package elections.electors;
+
+import elections.Candidate;
 
 import java.util.stream.Stream;
 

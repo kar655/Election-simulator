@@ -1,6 +1,7 @@
-package elections;
+package elections.electors;
 
-import java.util.Comparator;
+import elections.Candidate;
+
 import java.util.stream.Stream;
 
 public class MinElector extends CharacteristicElector {

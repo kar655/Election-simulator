@@ -1,6 +1,7 @@
-package elections;
+package elections.electors;
 
-import java.util.ArrayList;
+import elections.Candidate;
+
 import java.util.stream.Stream;
 
 public class PartyElector extends Elector implements IPartyFilter {

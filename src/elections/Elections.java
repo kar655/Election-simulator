@@ -1,5 +1,7 @@
 package elections;
 
+import elections.electors.Elector;
+
 import java.util.ArrayList;
 
 public class Elections {
@@ -7,7 +9,7 @@ public class Elections {
     private int constituenciesNumber;
     private int partiesNumber;
     private int changesNumber;
-    private int charachteristicsNumber;
+    private int characteristicsNumber;
 
 
     private Parser parser = new Parser();
@@ -20,4 +22,16 @@ public class Elections {
 
     }
 
+    public void printResults() {
+        // todo nazwę metody przeliczania głosów
+
+        int electorsIndex = 0;
+        int candidateIndex = 0;
+
+        for (Constituency con : constituencies) {
+            System.out.println(con);
+
+            System.out.println(electors.get(electorsIndex++));
+        }
+    }
 }
