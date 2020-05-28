@@ -3,23 +3,45 @@ package elections;
 import elections.electors.Elector;
 import elections.electors.MaxElector;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
-        // write your code here
-        System.out.println("Hello World");
-        Parser parser = new Parser();
+
+        if (args.length != 1) {
+            System.out.println(
+                    "You need to pass exactly one argument - file name");
+            return;
+        }
+
+        Parser parser;
+
+        try {
+            parser = new Parser(args[0]);
+        } catch (FileNotFoundException e) {
+            System.out.println("File " + args[0] + " doesn't exist");
+            return;
+        }
+
+        Elections elections = new Elections(parser);
+        elections.readInfo();
+//        elections.simulate();
+        elections.printResults();
+
+
+        Constituency con = new Constituency(2, 1, 3, 1);
 
         Elector elector = new MaxElector("Jan",
                 "Kowalski",
-                2,
+                con,
                 1);
 
         Candidate candidate = new Candidate("Donald",
                 "Tusk", 2, "SuperPartia",
-                69, 20, 3123, 1);
+                69, 20);
 
         ArrayList<Candidate> ac = new ArrayList<>();
         ac.add(candidate);

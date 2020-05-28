@@ -1,6 +1,7 @@
 package elections.electors;
 
 import elections.Candidate;
+import elections.Constituency;
 
 import java.util.stream.Stream;
 
@@ -11,10 +12,10 @@ public class CharacteristicPartyElector extends CharacteristicElector
 
     public CharacteristicPartyElector(String name,
                                       String surname,
-                                      int constituencyNumber,
+                                      Constituency con,
                                       String partyName,
                                       int... characteristics) {
-        super(name, surname, constituencyNumber, characteristics);
+        super(name, surname, con, characteristics);
         this.partyName = partyName;
     }
 

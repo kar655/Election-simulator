@@ -1,6 +1,7 @@
 package elections.electors;
 
 import elections.Candidate;
+import elections.Constituency;
 
 import java.util.stream.Stream;
 
@@ -8,10 +9,10 @@ public class MaxPartyElector extends CharacteristicPartyElector {
 
     public MaxPartyElector(String name,
                            String surname,
-                           int constituencyNumber,
+                           Constituency con,
                            String partyName,
                            int... characteristics) {
-        super(name, surname, constituencyNumber, partyName, characteristics);
+        super(name, surname, con, partyName, characteristics);
     }
 
     protected Stream<Candidate> voteFilter(Stream<Candidate> candidates) {

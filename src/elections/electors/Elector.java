@@ -1,6 +1,7 @@
 package elections.electors;
 
 import elections.Candidate;
+import elections.Constituency;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -10,19 +11,19 @@ public abstract class Elector {
 
     protected final String name;
     protected final String surname;
-    protected final int constituencyNumber; // okreg wyborczy xd todo
+    protected Constituency constituency; // okreg wyborczy xd todo
     protected String candidateName;
 
-    public Elector(String name, String surname, int constituencyNumber) {
+    public Elector(String name, String surname, Constituency con) {
         this.name = name;
         this.surname = surname;
-        this.constituencyNumber = constituencyNumber;
+        this.constituency = con;
     }
 
     // candidates are in certain constituency
     protected Stream<Candidate> voteFilter(Stream<Candidate> candidates) {
         return candidates
-                .filter(c -> c.getConstituencyNumber() == this.constituencyNumber);
+                .filter(c -> this.constituency.sameId(c.getConstituencyNumber()));
     }
 
     public void giveVote(ArrayList<Candidate> candidates) {

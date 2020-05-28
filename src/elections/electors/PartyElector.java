@@ -1,6 +1,7 @@
 package elections.electors;
 
 import elections.Candidate;
+import elections.Constituency;
 
 import java.util.stream.Stream;
 
@@ -8,9 +9,9 @@ public class PartyElector extends Elector implements IPartyFilter {
 
     protected final String partyName;
 
-    public PartyElector(String name, String surname, int constituencyNumber,
+    public PartyElector(String name, String surname, Constituency con,
                         String partyName) {
-        super(name, surname, constituencyNumber);
+        super(name, surname, con);
         this.partyName = partyName;
     }
 

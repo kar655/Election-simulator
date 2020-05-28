@@ -1,6 +1,7 @@
 package elections.electors;
 
 import elections.Candidate;
+import elections.Constituency;
 
 import java.util.stream.Stream;
 
@@ -8,9 +9,10 @@ public class CandidateElector extends Elector {
 
     protected final int candidateListPosition;
 
-    public CandidateElector(String name, String surname, int constituencyNumber,
+    public CandidateElector(String name, String surname,
+                            Constituency con,
                             int candidateListPosition) {
-        super(name, surname, constituencyNumber);
+        super(name, surname, con);
         this.candidateListPosition = candidateListPosition;
     }
 
