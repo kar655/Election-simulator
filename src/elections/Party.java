@@ -6,24 +6,25 @@ public abstract class Party {
 
     protected String name;
     protected int budget;
+    protected ArrayList<Candidate> candidates = new ArrayList<>();
 
     public Party(String name, int budget) {
         this.name = name;
         this.budget = budget;
     }
 
-    protected int operationSum(ArrayList<Integer> operation) {
-        return operation.stream().map(Math::abs).reduce(0, Integer::sum);
+    public void addCandidate(Candidate c) {
+        candidates.add(c);
     }
 
-    protected int operationCost(ArrayList<Integer> operation,
+    protected int operationCost(Operation operation,
                                 Constituency constituency) {
-        return operationSum(operation) * constituency.getElectorsNumber();
+        return operation.getAbsSum() * constituency.getElectorsNumber();
     }
 
     // todo protected abstract int operationValue
     //  i wystarczy jedna petla po wsyztskich stanach
 
     public abstract void useStrategy(ArrayList<Constituency> constituencies,
-                                     ArrayList<ArrayList<Integer>> operations);
+                                     ArrayList<Operation> operations);
 }

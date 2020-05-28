@@ -35,6 +35,10 @@ public abstract class Elector {
         this.candidateName = optional.get().getName();
     }
 
+    public float weightedSum(Candidate c) {
+        return 0;
+    }
+
     @Override
     public String toString() {
         return name + " " + surname + " " + candidateName;

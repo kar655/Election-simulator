@@ -24,7 +24,15 @@ public class CharacteristicElector extends Elector
                 - c2.getIthCharacteristics(characteristics[0] - 1);
     }
 
-    protected float weightedSum(Candidate c) {
+    public int compareAverage(Candidate c1, Candidate c2) {
+        return Float.compare(weightedSum(c1), weightedSum(c2));
+    }
+
+    @Override
+    public float weightedSum(Candidate c) {
+        if (this.characteristics.length < 5)
+            return 0;
+
         float sum = 0;
         float weightSum = 0;
         // todo -1 ?
@@ -34,10 +42,6 @@ public class CharacteristicElector extends Elector
         }
 
         return sum / weightSum;
-    }
-
-    public int compareAverage(Candidate c1, Candidate c2) {
-        return Float.compare(weightedSum(c1), weightedSum(c2));
     }
 
     protected Stream<Candidate> voteFilter(Stream<Candidate> candidates) {

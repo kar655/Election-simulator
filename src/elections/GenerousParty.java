@@ -11,12 +11,7 @@ public class GenerousParty extends Party {
 
     @Override
     public void useStrategy(ArrayList<Constituency> constituencies,
-                            ArrayList<ArrayList<Integer>> operations) {
-        // todo jakas tablica zmian w rejonie i gdy licze w electorze pobieram
-        // poprawke z tego rejun
-
-        // todo klasa operacja?
-
+                            ArrayList<Operation> operations) {
 
         int price = 0;
         int conId = 0, operationId = 0;
@@ -25,7 +20,7 @@ public class GenerousParty extends Party {
             for (int j = 0; j < operations.size(); j++) {
 
                 int tempPrice = constituencies.get(i).getElectorsNumber()
-                        * operationSum(operations.get(j));
+                        * operations.get(j).getAbsSum();
 
                 if (tempPrice <= budget && tempPrice > price) {
                     price = tempPrice;
@@ -35,6 +30,7 @@ public class GenerousParty extends Party {
             }
         }
 
-        // todo tutaj jakis filtr na characteristics w constituency
+        // update filter in Constituency
+        constituencies.get(conId).add(operations.get(operationId));
     }
 }
