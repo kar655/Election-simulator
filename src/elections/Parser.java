@@ -23,6 +23,17 @@ public class Parser {
         return scanner.nextLine().split(" ");
     }
 
+    public int[] readPairs() {
+        Scanner s = new Scanner(scanner.nextLine());
+        int number = s.nextInt();
+        int[] output = new int[number];
+
+        for (int i = 0; i < 2 * number; i++)
+            output[i] = s.nextInt();
+
+        return output;
+    }
+
 //    public Elector readElector() {
 //
 //    }
