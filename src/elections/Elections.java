@@ -199,5 +199,17 @@ public class Elections {
 
     public void simulate() {
         System.out.println("Starting simulation...");
+
+        for (Constituency constituency : constituencies)
+            for (Elector elector : constituency.getElectors())
+                elector.giveVote(candidates);
+
+//        ConstituencyCollection c = new ConstituencyCollection();
+//        c.constituencies = this.constituencies;
+//        for (Constituency con : c)
+//            System.out.println(con);
+        QuotientMethod method = new QuotientMethod("D'Hondt");
+        for (Constituency constituency : constituencies)
+            method.getMandates(constituency);
     }
 }

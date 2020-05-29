@@ -3,10 +3,12 @@ package elections;
 import elections.electors.Elector;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Constituency extends Operation {
 
     protected ArrayList<Integer> id = new ArrayList<>();
+    protected HashMap<String, Integer> votes = new HashMap<>();
     protected final int electorsNumber;
     protected final int MPNumber;
     protected ArrayList<Elector> electors = new ArrayList<>();
@@ -43,17 +45,41 @@ public class Constituency extends Operation {
         return output;
     }
 
+    public void giveVote(String partyName) {
+        if (votes.containsKey(partyName))
+            votes.put(partyName, votes.get(partyName) + 1);
+        else
+            votes.put(partyName, 1);
+    }
+
+    public HashMap<String, Integer> getVotes() {
+        //return new HashMap<>(); // todo mapa <nazwa partii, liczba glosow>
+        return votes;
+    }
+
+    public ArrayList<Elector> getElectors() {
+        return electors;
+    }
+
     public int getElectorsNumber() {
         return electorsNumber;
+    }
+
+    public int getMPNumber() {
+        return MPNumber;
     }
 
     public String getId() {
         return id.get(0) + "";
     }
 
+    public boolean wasMerged() {
+        return false;
+    }
+
     @Override
     public String toString() {
         // todo
-        return "";
+        return "" + id;
     }
 }

@@ -1,7 +1,6 @@
 package elections;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class GenerousParty extends Party {
 

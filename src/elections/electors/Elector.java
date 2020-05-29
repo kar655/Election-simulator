@@ -31,9 +31,13 @@ public abstract class Elector {
         Optional<Candidate> optional = voteFilter(candidates.stream()).findFirst();
         assert optional.isPresent(); // todo
 
+        Candidate candidate = optional.get();
+
         // return optional.get().getListPosition();
-        optional.get().increaseVotes();
-        this.candidateName = optional.get().getName();
+        candidate.increaseVotes();
+        this.candidateName = candidate.getName();
+
+        constituency.giveVote(candidate.getPartyName());
     }
 
     public float weightedSum(Candidate c) {
