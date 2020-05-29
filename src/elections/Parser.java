@@ -5,6 +5,7 @@ import elections.electors.Elector;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Parser {
@@ -24,14 +25,12 @@ public class Parser {
     }
 
     public int[] readPairs() {
-        Scanner s = new Scanner(scanner.nextLine());
-        int number = s.nextInt();
-        int[] output = new int[number];
-
-        for (int i = 0; i < 2 * number; i++)
-            output[i] = s.nextInt();
-
-        return output;
+        return Arrays.stream(scanner.nextLine().split("[(), ]"))
+                .skip(1)
+                .filter(s -> !s.isEmpty())
+                .mapToInt(Integer::parseInt)
+                .map(x -> x - 1)
+                .toArray();
     }
 
 //    public Elector readElector() {

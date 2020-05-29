@@ -1,18 +1,20 @@
 package elections;
 
-import java.util.ArrayList;
 
 public class Operation {
-    protected ArrayList<Integer> values;
-    protected int absSum;
 
-    public Operation(ArrayList<Integer> values) {
+    protected int[] values;
+    protected int absSum = 0;
+
+    public Operation(int[] values) {
         this.values = values;
-        // todo od razu podac sume
-        int sum = 0;
+
         for (int val : values)
-            sum += Math.abs(val);
-        this.absSum = sum;
+            this.absSum += Math.abs(val);
+    }
+
+    public Operation(int size) {
+        this.values = new int[size];
     }
 
     protected Operation(Operation op) {
@@ -21,7 +23,7 @@ public class Operation {
     }
 
     public int get(int i) {
-        return values.get(i);
+        return values[i];
     }
 
     public int getAbsSum() {
@@ -30,8 +32,8 @@ public class Operation {
 
     public void add(Operation o) {
         // todo max z?
-        for (int i = 0; i < values.size(); i++) {
-            this.values.set(i, this.get(i) + o.get(i));
+        for (int i = 0; i < values.length; i++) {
+            values[i] += o.get(i);
         }
     }
 }

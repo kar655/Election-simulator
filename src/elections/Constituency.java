@@ -10,18 +10,17 @@ public class Constituency extends Operation {
     protected final int electorsNumber;
     protected final int MPNumber;
     protected ArrayList<Elector> electors = new ArrayList<>();
-    protected Operation filter; // what campaign changed
 
     public Constituency(int id, int electorsNumber, int MPNumber,
                         int characteristicNumber) {
-        super(new ArrayList<>(characteristicNumber));
+        super(characteristicNumber);
         this.id.add(id);
         this.electorsNumber = electorsNumber;
         this.MPNumber = MPNumber;
     }
 
     protected Constituency(int electorsNumber, int MPNumber,
-                           Operation filter) {
+                           int[] filter) {
         super(filter);
         this.electorsNumber = electorsNumber;
         this.MPNumber = MPNumber;

@@ -9,7 +9,8 @@ public class PartyElector extends Elector implements IPartyFilter {
 
     protected final String partyName;
 
-    public PartyElector(String name, String surname, Constituency con,
+    public PartyElector(String name, String surname,
+                        Constituency con,
                         String partyName) {
         super(name, surname, con);
         this.partyName = partyName;

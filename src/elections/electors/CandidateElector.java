@@ -5,14 +5,15 @@ import elections.Constituency;
 
 import java.util.stream.Stream;
 
-public class CandidateElector extends Elector {
+public class CandidateElector extends PartyElector {
 
     protected final int candidateListPosition;
 
     public CandidateElector(String name, String surname,
                             Constituency con,
+                            String partyName,
                             int candidateListPosition) {
-        super(name, surname, con);
+        super(name, surname, con, partyName);
         this.candidateListPosition = candidateListPosition;
     }
 

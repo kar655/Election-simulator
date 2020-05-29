@@ -5,6 +5,7 @@ import elections.electors.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 public class Elections {
 
@@ -19,13 +20,14 @@ public class Elections {
     private HashMap<String, Party> parties = new HashMap<>();
     //    private ArrayList<Elector> electors = new ArrayList<>();
     private ArrayList<Candidate> candidates = new ArrayList<>();
+    private ArrayList<Operation> operations = new ArrayList<>();
     private ArrayList<Constituency> constituencies = new ArrayList<>();
 
     public Elections(Parser parser) {
         this.parser = parser;
     }
 
-    public void readBasicInfo() {
+    private void readBasicInfo() {
         String[] line = parser.readLine();
 
         constituenciesNumber = Integer.parseInt(line[0]);
@@ -79,42 +81,50 @@ public class Elections {
                         Integer.parseInt(partiesInfo[1][i]));
             }
 
-            parties.put(partiesInfo[i][0], party);
+            parties.put(partiesInfo[0][i], party);
         }
     }
 
-    private void mergeConstituencies() {
-        int[] pairs = parser.readPairs();
-
+    private void mergeConstituencies(int[] pairs) {
         for (int i = 0; i < pairs.length; i += 2) {
             Constituency merged = new MergedConstituency(
-                    constituencies.get(i),
-                    constituencies.get(i + 1));
+                    constituencies.get(pairs[i]),
+                    constituencies.get(pairs[i + 1]));
 
-            constituencies.set(i, merged);
-            constituencies.set(i + 1, merged);
+            constituencies.set(pairs[i], merged);
+            constituencies.set(pairs[i + 1], merged);
         }
     }
 
-    private void readCandidate() {
-        String[] line = parser.readLine();
+    private void readCandidate(String[] line) {
         // Konrad K 1 PartiaA 1 -72 -73 19 -83 2
         Candidate candidate = new Candidate(line[0],
                 line[1],
                 Integer.parseInt(line[2]),
                 line[3],
-                Integer.parseInt(line[3]),
+                Integer.parseInt(line[4]),
                 Arrays.stream(line).skip(5).
                         mapToInt(Integer::parseInt).toArray());
 
         parties.get(line[3]).addCandidate(candidate);
     }
 
-    private void readElector() {
+    private void readCandidates() {
         String[] line = parser.readLine();
+
+        while (parties.containsKey(line[3])) {
+            readCandidate(line);
+            line = parser.readLine();
+        }
+
+        readElector(line);
+    }
+
+    private void readElector(String[] line) {
         int type = Integer.parseInt(line[3]);
 
-        Constituency constituency = constituencies.get(Integer.parseInt(line[2]));
+        Constituency constituency =
+                constituencies.get(Integer.parseInt(line[2]) - 1);
         Elector elector;
 
         if (type == 1) {
@@ -122,7 +132,7 @@ public class Elections {
                     constituency, line[4]);
         } else if (type == 2) {
             elector = new CandidateElector(line[0], line[1],
-                    constituency, Integer.parseInt(line[4]));
+                    constituency, line[4], Integer.parseInt(line[5]));
         } else if (type == 3) {
             elector = new MinElector(line[0], line[1],
                     constituency, Integer.parseInt(line[4]));
@@ -150,7 +160,44 @@ public class Elections {
         constituency.addElector(elector);
     }
 
-    public void readInfo() {
+    private void readOperation() {
+        int[] values = Arrays.stream(parser.readLine())
+                .filter(s -> !s.isEmpty())
+                .mapToInt(Integer::parseInt)
+                .toArray();
 
+        operations.add(new Operation(values));
+    }
+
+    public void readInfo() {
+        readBasicInfo();
+        int[] pairs = parser.readPairs();
+        loadParties();
+        initializeConstituencies();
+        mergeConstituencies(pairs);
+        readCandidates();
+
+        boolean once = false;
+
+//        for (Constituency constituency : constituencies)
+        for (int j = 0; j < constituencies.size(); j++) {
+            if (constituencies.get(j).sameId(j + 2))
+                j++;
+            for (int i = 0; i < constituencies.get(j).getElectorsNumber(); i++) {
+                // one more was read when reading candidates
+                if (!once && constituencies.get(j).sameId(1)) {
+                    once = true;
+                    continue;
+                }
+                readElector(parser.readLine());
+            }
+        }
+
+        for (int i = 0; i < changesNumber; i++)
+            readOperation();
+    }
+
+    public void simulate() {
+        System.out.println("Starting simulation...");
     }
 }

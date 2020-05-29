@@ -5,9 +5,9 @@ public class MergedConstituency extends Constituency {
     public MergedConstituency(Constituency first, Constituency second) {
         super(first.electorsNumber + second.electorsNumber,
                 first.MPNumber + second.MPNumber,
-                first.filter);
+                first.values);
 
-        this.filter.add(second);
+        this.add(second); // sum filters
         this.id = first.id;
         this.id.addAll(second.id);
     }
