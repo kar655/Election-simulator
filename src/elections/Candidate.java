@@ -4,7 +4,7 @@ public class Candidate {
 
     private final String name;
     private final String surname;
-    private final int constituencyNumber; // okreg wyborczy xd todo
+    private final int constituencyNumber;
     private final String partyName;
     private final int listPosition;
     private int[] characteristic;

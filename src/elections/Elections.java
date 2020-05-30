@@ -5,7 +5,6 @@ import elections.electors.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 public class Elections {
 
@@ -16,12 +15,8 @@ public class Elections {
 
 
     private Parser parser;
-    //    private ArrayList<Party> parties = new ArrayList<>();
     private HashMap<String, Party> parties = new HashMap<>();
-    //    private ArrayList<Elector> electors = new ArrayList<>();
-    private ArrayList<Candidate> candidates = new ArrayList<>();
     private ArrayList<Operation> operations = new ArrayList<>();
-    //    private ArrayList<Constituency> constituencies = new ArrayList<>();
     private ConstituencyCollection constituencies = new ConstituencyCollection();
     private ArrayList<MandateCounter> methods = new ArrayList<>() {
         {
@@ -35,6 +30,7 @@ public class Elections {
         this.parser = parser;
     }
 
+    // Reads four basic parameters
     private void readBasicInfo() {
         String[] line = parser.readLine();
 
@@ -44,6 +40,7 @@ public class Elections {
         characteristicsNumber = Integer.parseInt(line[3]);
     }
 
+    // Initializes all constituencies, they are ready to be merged
     private void initializeConstituencies() {
         String[] electorsNumbers = parser.readLine();
 
@@ -55,6 +52,7 @@ public class Elections {
         }
     }
 
+    // Reads parties
     private void loadParties() {
         // names, budgets, strategies
         String[][] partiesInfo =
@@ -72,7 +70,7 @@ public class Elections {
                 party = new GreedyParty(partiesInfo[0][i],
                         Integer.parseInt(partiesInfo[1][i]));
             } else { // partiesInfo[2][i].equals("W")
-                party = new GenerousParty(partiesInfo[0][i],
+                party = new MyParty(partiesInfo[0][i],
                         Integer.parseInt(partiesInfo[1][i]));
             }
 
@@ -80,6 +78,7 @@ public class Elections {
         }
     }
 
+    // Merges constituencies that are listed in pairs at index 2k and 2k + 1
     private void mergeConstituencies(int[] pairs) {
         for (int i = 0; i < pairs.length; i += 2) {
             Constituency merged = new MergedConstituency(
@@ -91,6 +90,7 @@ public class Elections {
         }
     }
 
+    // Reads one Candidate
     private void readCandidate(String[] line) {
         // Konrad K 1 PartiaA 1 -72 -73 19 -83 2
         int constituencyNumber = Integer.parseInt(line[2]);
@@ -107,6 +107,8 @@ public class Elections {
         constituencies.get(constituencyNumber - 1).addCandidate(candidate);
     }
 
+    // Reads candidates from input while 4th word is some Party name
+    // last read line that is not Candidate is passed to readElector
     private void readCandidates() {
         String[] line = parser.readLine();
 
@@ -118,6 +120,7 @@ public class Elections {
         readElector(line);
     }
 
+    // Reads Elector adds it to constituency that is belongs to
     private void readElector(String[] line) {
         int type = Integer.parseInt(line[3]);
 
@@ -158,6 +161,7 @@ public class Elections {
         constituency.addElector(elector);
     }
 
+    // Reads vector of values representing operation
     private void readOperation() {
         int[] values = Arrays.stream(parser.readLine())
                 .filter(s -> !s.isEmpty())
@@ -167,6 +171,7 @@ public class Elections {
         operations.add(new Operation(values));
     }
 
+    // Respectively calls reading functions
     public void readInfo() {
         readBasicInfo();
         int[] pairs = parser.readPairs();

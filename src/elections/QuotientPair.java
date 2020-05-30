@@ -27,7 +27,7 @@ public class QuotientPair implements Comparable<QuotientPair> {
 
     @Override
     public int compareTo(QuotientPair o) {
-        // todo '-' for reversed sorting
+        // '-' for reversed sorting
         return -Float.compare(this.first(), o.first());
     }
 }

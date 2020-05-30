@@ -30,6 +30,10 @@ public class Operation {
         return this.absSum;
     }
 
+    public int size() {
+        return values.length;
+    }
+
     public void add(Operation o) {
         // todo max z?
         for (int i = 0; i < values.length; i++) {

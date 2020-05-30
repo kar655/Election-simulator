@@ -11,7 +11,7 @@ public abstract class Elector {
 
     protected final String name;
     protected final String surname;
-    protected Constituency constituency; // okreg wyborczy xd todo
+    protected Constituency constituency;
     protected String candidateName;
 
     public Elector(String name, String surname, Constituency con) {
@@ -26,9 +26,9 @@ public abstract class Elector {
                 .filter(c -> this.constituency.sameId(c.getConstituencyNumber()));
     }
 
+
+    // Calls all filters for candidates, increase candidate vote counter
     public void giveVote() {
-//    public void giveVote() {
-//        ArrayList<Candidate> candidates = constituency.
 
         Optional<Candidate> optional =
                 voteFilter(constituency.getCandidates().stream()).findFirst();

@@ -1,12 +1,6 @@
 package elections;
 
-import elections.electors.Elector;
-import elections.electors.MaxElector;
-
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Main {
 
@@ -31,28 +25,5 @@ public class Main {
         elections.readInfo();
         elections.campaigns();
         elections.simulate();
-
-
-//        Constituency con = new Constituency(2, 1, 3, 1);
-//
-//        Elector elector = new MaxElector("Jan",
-//                "Kowalski",
-//                con,
-//                1);
-//
-//        Candidate candidate = new Candidate("Donald",
-//                "Tusk", 2, "SuperPartia",
-//                69, 20);
-//
-//        ArrayList<Candidate> ac = new ArrayList<>();
-//        ac.add(candidate);
-//        ac.add(new Candidate("KOZAK", "x", 2,
-//                "XD", 127, -200));
-//
-//        ac.add(new Candidate("KOZAK21", "x", 3,
-//                "XD", 127, 200));
-//
-//        elector.giveVote(ac);
-//        System.out.println(elector);
     }
 }

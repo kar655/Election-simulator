@@ -58,7 +58,6 @@ public class Constituency extends Operation {
     }
 
     public HashMap<String, Integer> getVotes() {
-        //return new HashMap<>(); // todo mapa <nazwa partii, liczba glosow>
         return votes;
     }
 
@@ -80,6 +79,10 @@ public class Constituency extends Operation {
 
     public String getId() {
         return id + "";
+    }
+
+    public int getFirstId() {
+        return id.get(0);
     }
 
     public boolean wasMerged() {

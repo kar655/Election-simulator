@@ -7,8 +7,6 @@ import java.util.Map;
 public abstract class MandateCounter {
 
     protected String name;
-    // todo poprawic jak bylo wczesniej tylko jakies temporary mandates
-    //  i jakies dodawanie do tych aktualnych
     protected HashMap<String, Integer> allMandates = new HashMap<>();
 
     public MandateCounter(String name) {

@@ -16,10 +16,6 @@ public class Parser {
         this.scanner = new Scanner(new File(fileName));
     }
 
-//    public void read() {
-//        Scanner sc = new Scanner(System.in);
-//    }
-
     public String[] readLine() {
         return scanner.nextLine().split(" ");
     }
@@ -32,8 +28,4 @@ public class Parser {
                 .map(x -> x - 1)
                 .toArray();
     }
-
-//    public Elector readElector() {
-//
-//    }
 }
