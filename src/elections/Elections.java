@@ -21,7 +21,15 @@ public class Elections {
     //    private ArrayList<Elector> electors = new ArrayList<>();
     private ArrayList<Candidate> candidates = new ArrayList<>();
     private ArrayList<Operation> operations = new ArrayList<>();
-    private ArrayList<Constituency> constituencies = new ArrayList<>();
+    //    private ArrayList<Constituency> constituencies = new ArrayList<>();
+    private ConstituencyCollection constituencies = new ConstituencyCollection();
+    private ArrayList<MandateCounter> methods = new ArrayList<>() {
+        {
+            add(new DHondtMethod());
+            add(new SaintLagueMethod());
+            add(new HareNiemeyerMethod());
+        }
+    };
 
     public Elections(Parser parser) {
         this.parser = parser;
@@ -107,6 +115,7 @@ public class Elections {
                         mapToInt(Integer::parseInt).toArray());
 
         parties.get(line[3]).addCandidate(candidate);
+        candidates.add(candidate);
     }
 
     private void readCandidates() {
@@ -197,19 +206,27 @@ public class Elections {
             readOperation();
     }
 
+    public void campaigns() {
+        System.out.println("campaigns...");
+    }
+
     public void simulate() {
         System.out.println("Starting simulation...");
 
         for (Constituency constituency : constituencies)
             for (Elector elector : constituency.getElectors())
                 elector.giveVote(candidates);
+//                elector.giveVote(); // TODO kandydaci w okregach tez
 
 //        ConstituencyCollection c = new ConstituencyCollection();
 //        c.constituencies = this.constituencies;
 //        for (Constituency con : c)
 //            System.out.println(con);
-        QuotientMethod method = new QuotientMethod("D'Hondt");
-        for (Constituency constituency : constituencies)
-            method.getMandates(constituency);
+
+        for (MandateCounter method : methods) {
+            System.out.println("Using " + method + "\n");
+            for (Constituency constituency : constituencies)
+                method.getMandates(constituency);
+        }
     }
 }

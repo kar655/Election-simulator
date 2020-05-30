@@ -5,12 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-public class QuotientMethod extends MandateCounter {
+public abstract class QuotientMethod extends MandateCounter {
 
-    protected int step;
+    protected final int step;
 
-    public QuotientMethod(String name) {
+    public QuotientMethod(String name, int step) {
         super(name);
+        this.step = step;
     }
 
     @Override
@@ -20,6 +21,7 @@ public class QuotientMethod extends MandateCounter {
         int expectingMandates = constituency.getMPNumber();
         int mandates = 0;
 
+
         for (Map.Entry<String, Integer> entry
                 : constituency.getVotes().entrySet()) {
             votes.put(entry.getKey(), 0);
@@ -28,7 +30,7 @@ public class QuotientMethod extends MandateCounter {
         }
 
 
-        while (mandates <= expectingMandates && !priorityQueue.isEmpty()) {
+        while (mandates < expectingMandates) {
             QuotientPair temp = priorityQueue.poll();
             votes.put(temp.second(), votes.get(temp.second()) + 1);
             mandates++;

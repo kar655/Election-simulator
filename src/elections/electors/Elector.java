@@ -27,6 +27,8 @@ public abstract class Elector {
     }
 
     public void giveVote(ArrayList<Candidate> candidates) {
+//    public void giveVote() {
+//        ArrayList<Candidate> candidates = constituency.
 
         Optional<Candidate> optional = voteFilter(candidates.stream()).findFirst();
         assert optional.isPresent(); // todo

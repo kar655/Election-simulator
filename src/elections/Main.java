@@ -29,6 +29,7 @@ public class Main {
 
         Elections elections = new Elections(parser);
         elections.readInfo();
+        elections.campaigns();
         elections.simulate();
         elections.printResults();
 

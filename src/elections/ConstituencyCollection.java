@@ -18,6 +18,14 @@ public class ConstituencyCollection implements Iterable<Constituency> {
         constituencies.add(constituency);
     }
 
+    public void set(int i, Constituency constituency) {
+        constituencies.set(i, constituency);
+    }
+
+    public int size() {
+        return constituencies.size();
+    }
+
     @Override
     public Iterator<Constituency> iterator() {
         return new Iterator<>() {
