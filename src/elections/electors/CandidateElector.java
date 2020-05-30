@@ -17,7 +17,7 @@ public class CandidateElector extends PartyElector {
         this.candidateListPosition = candidateListPosition;
     }
 
-    // exact candidate
+    // Exact Candidate
     protected Stream<Candidate> voteFilter(Stream<Candidate> candidates) {
         candidates = super.voteFilter(candidates);
         return candidates

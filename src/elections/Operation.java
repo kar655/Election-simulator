@@ -22,22 +22,25 @@ public class Operation {
         this.absSum = op.absSum;
     }
 
+    // Returns ith element
     public int get(int i) {
         return values[i];
     }
 
+    // Returns absSum
     public int getAbsSum() {
         return this.absSum;
     }
 
+    // Return size
     public int size() {
         return values.length;
     }
 
+    // Adds in place values from other Operation with same size
     public void add(Operation o) {
         // todo max z?
-        for (int i = 0; i < values.length; i++) {
+        for (int i = 0; i < values.length; i++)
             values[i] += o.get(i);
-        }
     }
 }

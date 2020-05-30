@@ -3,7 +3,6 @@ package elections.electors;
 import elections.Candidate;
 import elections.Constituency;
 
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -20,14 +19,16 @@ public abstract class Elector {
         this.constituency = con;
     }
 
-    // candidates are in certain constituency
+    // Function to filter candidates that certain elector can vote for
     protected Stream<Candidate> voteFilter(Stream<Candidate> candidates) {
+        // Candidates are in certain constituency
         return candidates
                 .filter(c -> this.constituency.sameId(c.getConstituencyNumber()));
     }
 
 
     // Calls all filters for candidates, increase candidate vote counter
+    // remembers candidate name
     public void giveVote() {
 
         Optional<Candidate> optional =
@@ -43,6 +44,8 @@ public abstract class Elector {
         constituency.giveVote(candidate.getPartyName());
     }
 
+    // Weighted sum of characteristic needed in greedy party
+    // is 0 if elector is not Average
     public float weightedSum(Candidate c) {
         return 0;
     }

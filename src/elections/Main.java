@@ -25,5 +25,6 @@ public class Main {
         elections.readInfo();
         elections.campaigns();
         elections.simulate();
+        elections.countMandates();
     }
 }

@@ -180,15 +180,14 @@ public class Elections {
         mergeConstituencies(pairs);
         readCandidates();
 
+        // Need to skip one elector from first constituency
+        // because one line too much was read when loading candidates
         boolean once = false;
 
-//        for (Constituency constituency : constituencies)
-        for (int j = 0; j < constituencies.size(); j++) {
-            if (constituencies.get(j).sameId(j + 2))
-                j++;
-            for (int i = 0; i < constituencies.get(j).getElectorsNumber(); i++) {
+        for (Constituency constituency : constituencies) {
+            for (int i = 0; i < constituency.getElectorsNumber(); i++) {
                 // one more was read when reading candidates
-                if (!once && constituencies.get(j).sameId(1)) {
+                if (!once && constituency.sameId(1)) {
                     once = true;
                     continue;
                 }
@@ -200,12 +199,15 @@ public class Elections {
             readOperation();
     }
 
+    // Each party run its campaign while they have enough money
     public void campaigns() {
         for (Party party : parties.values())
             while (party.canMakeCampaign())
                 party.useStrategy(constituencies, operations);
     }
 
+    // Each Elector votes, result are printed including
+    // candidates and number of votes they got
     public void simulate() {
 
         for (Constituency constituency : constituencies) {
@@ -224,9 +226,13 @@ public class Elections {
         }
 
         System.out.println();
+    }
 
+    // Counts and prints mandates for each constituency and party
+    public void countMandates() {
         for (MandateCounter method : methods) {
             System.out.println("\n\n" + method + "\n\n");
+
             for (Constituency constituency : constituencies) {
                 method.getMandates(constituency);
                 System.out.println();

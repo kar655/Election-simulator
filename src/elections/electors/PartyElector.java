@@ -16,7 +16,7 @@ public class PartyElector extends Elector implements IPartyFilter {
         this.partyName = partyName;
     }
 
-    // candidates are in certain Party
+    // Candidates are in certain Party
     protected Stream<Candidate> voteFilter(Stream<Candidate> candidates) {
         candidates = super.voteFilter(candidates);
         return partyFilter(candidates, this.partyName);

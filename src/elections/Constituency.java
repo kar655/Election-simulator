@@ -29,18 +29,23 @@ public class Constituency extends Operation {
         this.MPNumber = MPNumber;
     }
 
+    // Checks if this is Constituency with that id
     public boolean sameId(int id) {
         return this.id.stream().anyMatch(x -> x == id);
     }
 
+    // Adds elector
     public void addElector(Elector elector) {
         electors.add(elector);
     }
 
+    // Adds candidate
     public void addCandidate(Candidate candidate) {
         candidates.add(candidate);
     }
 
+    // Calculates sum of weighted sums of electors in this constituency
+    // for certain Candidate
     public int constituencyWeightedSum(Candidate c) {
         int output = 0;
         for (Elector elector : electors) {
@@ -50,6 +55,7 @@ public class Constituency extends Operation {
         return output;
     }
 
+    // Adds one vote for certain party in this constituency
     public void giveVote(String partyName) {
         if (votes.containsKey(partyName))
             votes.put(partyName, votes.get(partyName) + 1);
@@ -57,34 +63,42 @@ public class Constituency extends Operation {
             votes.put(partyName, 1);
     }
 
+    // Returns map of PartyNames and got votes in this constituency
     public HashMap<String, Integer> getVotes() {
         return votes;
     }
 
+    // Return electors in this constituency
     public ArrayList<Elector> getElectors() {
         return electors;
     }
 
+    // Return candidates in this constituency
     public ArrayList<Candidate> getCandidates() {
         return candidates;
     }
 
+    // Return number of electors in this constituency
     public int getElectorsNumber() {
         return electorsNumber;
     }
 
+    // Return number of MP in this constituency
     public int getMPNumber() {
         return MPNumber;
     }
 
+    // Return id of this constituency
     public String getId() {
         return id + "";
     }
 
+    // Return first id of this constituency
     public int getFirstId() {
         return id.get(0);
     }
 
+    // If this constituency was merged
     public boolean wasMerged() {
         return false;
     }
