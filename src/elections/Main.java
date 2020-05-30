@@ -31,7 +31,6 @@ public class Main {
         elections.readInfo();
         elections.campaigns();
         elections.simulate();
-        elections.printResults();
 
 
 //        Constituency con = new Constituency(2, 1, 3, 1);

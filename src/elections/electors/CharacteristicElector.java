@@ -38,8 +38,9 @@ public class CharacteristicElector extends Elector
         float weightSum = 0;
         // todo -1 ?
         for (int i = 0; i < characteristics.length; i++) {
-            weightSum += characteristics[i];
-            sum += characteristics[i] * c.getIthCharacteristics(i);
+            weightSum += characteristics[i] + constituency.get(i);
+            sum += (characteristics[i] + constituency.get(i))
+                    * c.getIthCharacteristics(i);
         }
 
         return sum / weightSum;

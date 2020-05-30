@@ -15,32 +15,32 @@ public abstract class QuotientMethod extends MandateCounter {
     }
 
     @Override
-    public ArrayList<Integer> getMandates(Constituency constituency) {
-        HashMap<String, Integer> votes = new HashMap<>();
+    public void getMandates(Constituency constituency) {
         PriorityQueue<QuotientPair> priorityQueue = new PriorityQueue<>();
+        HashMap<String, Integer> mandates = new HashMap<>();
         int expectingMandates = constituency.getMPNumber();
-        int mandates = 0;
+        int mandatesNumber = 0;
 
 
         for (Map.Entry<String, Integer> entry
                 : constituency.getVotes().entrySet()) {
-            votes.put(entry.getKey(), 0);
+            mandates.put(entry.getKey(), 0);
             priorityQueue.add(
                     new QuotientPair(entry.getValue(), entry.getKey()));
         }
 
 
-        while (mandates < expectingMandates) {
+        while (mandatesNumber < expectingMandates) {
             QuotientPair temp = priorityQueue.poll();
-            votes.put(temp.second(), votes.get(temp.second()) + 1);
-            mandates++;
+            mandates.put(temp.second(), mandates.get(temp.second()) + 1);
+            mandatesNumber++;
 
             temp.update(step);
             priorityQueue.add(temp);
         }
 
-        System.out.println(votes);
-
-        return new ArrayList<>();
+        assert mandatesNumber == expectingMandates;
+        printCurrentResult(mandates);
+        mergeMandate(mandates);
     }
 }

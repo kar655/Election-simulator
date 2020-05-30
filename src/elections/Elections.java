@@ -44,19 +44,6 @@ public class Elections {
         characteristicsNumber = Integer.parseInt(line[3]);
     }
 
-    public void printResults() {
-//        // todo nazwę metody przeliczania głosów
-//
-//        int electorsIndex = 0;
-//        int candidateIndex = 0;
-//
-//        for (Constituency con : constituencies) {
-//            System.out.println(con);
-//
-//            System.out.println(electors.get(electorsIndex++));
-//        }
-    }
-
     private void initializeConstituencies() {
         String[] electorsNumbers = parser.readLine();
 
@@ -106,16 +93,18 @@ public class Elections {
 
     private void readCandidate(String[] line) {
         // Konrad K 1 PartiaA 1 -72 -73 19 -83 2
+        int constituencyNumber = Integer.parseInt(line[2]);
+
         Candidate candidate = new Candidate(line[0],
                 line[1],
-                Integer.parseInt(line[2]),
+                constituencyNumber,
                 line[3],
                 Integer.parseInt(line[4]),
                 Arrays.stream(line).skip(5).
                         mapToInt(Integer::parseInt).toArray());
 
         parties.get(line[3]).addCandidate(candidate);
-        candidates.add(candidate);
+        constituencies.get(constituencyNumber - 1).addCandidate(candidate);
     }
 
     private void readCandidates() {
@@ -207,26 +196,39 @@ public class Elections {
     }
 
     public void campaigns() {
-        System.out.println("campaigns...");
+        for (Party party : parties.values())
+            while (party.canMakeCampaign())
+                party.useStrategy(constituencies, operations);
     }
 
     public void simulate() {
-        System.out.println("Starting simulation...");
 
-        for (Constituency constituency : constituencies)
-            for (Elector elector : constituency.getElectors())
-                elector.giveVote(candidates);
-//                elector.giveVote(); // TODO kandydaci w okregach tez
+        for (Constituency constituency : constituencies) {
+            System.out.println("\n\n" + constituency + "\n\n");
 
-//        ConstituencyCollection c = new ConstituencyCollection();
-//        c.constituencies = this.constituencies;
-//        for (Constituency con : c)
-//            System.out.println(con);
+            for (Elector elector : constituency.getElectors()) {
+                elector.giveVote();
+                System.out.println(elector);
+            }
+
+            System.out.println("\nCandidates in this constituency:\n");
+
+            for (Candidate candidate : constituency.getCandidates()) {
+                System.out.println(candidate);
+            }
+        }
+
+        System.out.println();
 
         for (MandateCounter method : methods) {
-            System.out.println("Using " + method + "\n");
-            for (Constituency constituency : constituencies)
+            System.out.println("\n\n" + method + "\n\n");
+            for (Constituency constituency : constituencies) {
                 method.getMandates(constituency);
+                System.out.println();
+            }
+
+            System.out.println("Mandates per all constituencies:");
+            method.printResult();
         }
     }
 }

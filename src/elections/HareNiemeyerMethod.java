@@ -21,20 +21,20 @@ public class HareNiemeyerMethod extends MandateCounter {
     }
 
     @Override
-    public ArrayList<Integer> getMandates(Constituency constituency) {
-        HashMap<String, Integer> votes = new HashMap<>();
+    public void getMandates(Constituency constituency) {
         PriorityQueue<QuotientPair> priorityQueue = new PriorityQueue<>();
+        HashMap<String, Integer> mandates = new HashMap<>();
         int expectingMandates = constituency.getMPNumber();
         int allVotes = constituency.getElectorsNumber();
-        int mandates = 0;
+        int mandatesNumber = 0;
 
         for (Map.Entry<String, Integer> entry
                 : constituency.getVotes().entrySet()) {
 
             // todo expectingMandates / allVotes === 1/10
             int floorMandates = entry.getValue() * expectingMandates / allVotes;
-            mandates += floorMandates;
-            votes.put(entry.getKey(), floorMandates);
+            mandatesNumber += floorMandates;
+            mandates.put(entry.getKey(), floorMandates);
 
             priorityQueue.add(
                     new QuotientPair(
@@ -42,17 +42,15 @@ public class HareNiemeyerMethod extends MandateCounter {
                             entry.getKey()));
         }
 
-        while (mandates < expectingMandates) {
+        while (mandatesNumber < expectingMandates) {
             QuotientPair temp = priorityQueue.poll();
 
-            mandates += 1;
-            votes.put(temp.second(), votes.get(temp.second()) + 1);
+            mandatesNumber += 1;
+            mandates.put(temp.second(), mandates.get(temp.second()) + 1);
         }
 
-
-        assert mandates == expectingMandates;
-
-        System.out.println(votes);
-        return null;
+        assert mandatesNumber == expectingMandates;
+        printCurrentResult(mandates);
+        mergeMandate(mandates);
     }
 }

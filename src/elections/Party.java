@@ -6,6 +6,7 @@ public abstract class Party {
 
     protected String name;
     protected int budget;
+    protected boolean makeCampaign = true;
     protected ArrayList<Candidate> candidates = new ArrayList<>();
 
     public Party(String name, int budget) {
@@ -17,6 +18,10 @@ public abstract class Party {
         candidates.add(c);
     }
 
+    public boolean canMakeCampaign() {
+        return makeCampaign;
+    }
+
     protected int operationCost(Operation operation,
                                 Constituency constituency) {
         return operation.getAbsSum() * constituency.getElectorsNumber();
@@ -25,6 +30,11 @@ public abstract class Party {
     // todo protected abstract int operationValue
     //  i wystarczy jedna petla po wsyztskich stanach
 
-    public abstract void useStrategy(ArrayList<Constituency> constituencies,
+    public abstract void useStrategy(ConstituencyCollection constituencies,
                                      ArrayList<Operation> operations);
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -26,11 +26,12 @@ public abstract class Elector {
                 .filter(c -> this.constituency.sameId(c.getConstituencyNumber()));
     }
 
-    public void giveVote(ArrayList<Candidate> candidates) {
+    public void giveVote() {
 //    public void giveVote() {
 //        ArrayList<Candidate> candidates = constituency.
 
-        Optional<Candidate> optional = voteFilter(candidates.stream()).findFirst();
+        Optional<Candidate> optional =
+                voteFilter(constituency.getCandidates().stream()).findFirst();
         assert optional.isPresent(); // todo
 
         Candidate candidate = optional.get();
@@ -48,6 +49,6 @@ public abstract class Elector {
 
     @Override
     public String toString() {
-        return name + " " + surname + " " + candidateName;
+        return name + " " + surname + " voted for " + candidateName;
     }
 }

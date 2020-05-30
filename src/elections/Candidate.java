@@ -20,10 +20,6 @@ public class Candidate {
         this.characteristic = characteristic;
     }
 
-    public String getName() {
-        return name + " " + surname;
-    }
-
     public int getConstituencyNumber() {
         return constituencyNumber;
     }
@@ -42,6 +38,10 @@ public class Candidate {
 
     public void increaseVotes() {
         this.gotVotes++;
+    }
+
+    public String getName() {
+        return name + " " + surname;
     }
 
     @Override

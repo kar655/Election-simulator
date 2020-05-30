@@ -7,11 +7,12 @@ import java.util.HashMap;
 
 public class Constituency extends Operation {
 
+    protected final int MPNumber;
+    protected final int electorsNumber;
     protected ArrayList<Integer> id = new ArrayList<>();
     protected HashMap<String, Integer> votes = new HashMap<>();
-    protected final int electorsNumber;
-    protected final int MPNumber;
     protected ArrayList<Elector> electors = new ArrayList<>();
+    protected ArrayList<Candidate> candidates = new ArrayList<>();
 
     public Constituency(int id, int electorsNumber, int MPNumber,
                         int characteristicNumber) {
@@ -34,6 +35,10 @@ public class Constituency extends Operation {
 
     public void addElector(Elector elector) {
         electors.add(elector);
+    }
+
+    public void addCandidate(Candidate candidate) {
+        candidates.add(candidate);
     }
 
     public int constituencyWeightedSum(Candidate c) {
@@ -61,6 +66,10 @@ public class Constituency extends Operation {
         return electors;
     }
 
+    public ArrayList<Candidate> getCandidates() {
+        return candidates;
+    }
+
     public int getElectorsNumber() {
         return electorsNumber;
     }
@@ -70,7 +79,7 @@ public class Constituency extends Operation {
     }
 
     public String getId() {
-        return id.get(0) + "";
+        return id + "";
     }
 
     public boolean wasMerged() {
@@ -79,7 +88,6 @@ public class Constituency extends Operation {
 
     @Override
     public String toString() {
-        // todo
-        return "" + id;
+        return "Votes result in constituency " + getId();
     }
 }

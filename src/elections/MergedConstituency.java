@@ -16,9 +16,4 @@ public class MergedConstituency extends Constituency {
     public boolean wasMerged() {
         return true;
     }
-
-    @Override
-    public String getId() {
-        return "(" + id.get(0) + "," + id.get(1) + ")";
-    }
 }

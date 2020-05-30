@@ -9,7 +9,7 @@ public class GreedyParty extends Party {
     }
 
     @Override
-    public void useStrategy(ArrayList<Constituency> constituencies,
+    public void useStrategy(ConstituencyCollection constituencies,
                             ArrayList<Operation> operations) {
 
         int price = 0;
@@ -40,8 +40,12 @@ public class GreedyParty extends Party {
             }
         }
 
-        budget -= price;
-        // update filter in Constituency
-        constituencies.get(conId).add(operations.get(operationId));
+        if (conId == 0 && operationId == 0)
+            makeCampaign = false;
+        else {
+            budget -= price;
+            // update filter in Constituency
+            constituencies.get(conId).add(operations.get(operationId));
+        }
     }
 }

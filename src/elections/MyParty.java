@@ -9,7 +9,7 @@ public class MyParty extends Party {
     }
 
     @Override
-    public void useStrategy(ArrayList<Constituency> constituencies,
+    public void useStrategy(ConstituencyCollection constituencies,
                             ArrayList<Operation> operations) {
         System.out.println("NOT IMPLEMENTED - MY CLASS");
     }
