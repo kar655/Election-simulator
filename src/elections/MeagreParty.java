@@ -9,8 +9,8 @@ public class MeagreParty extends Party {
     }
 
     @Override
-    public void useStrategy(ConstituencyCollection constituencies,
-                            ArrayList<Operation> operations) {
+    public void makeCampaign(ConstituencyCollection constituencies,
+                             ArrayList<Operation> operations) {
 
         int price = Integer.MAX_VALUE;
         int conId = 0, operationId = 0;

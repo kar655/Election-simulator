@@ -9,8 +9,8 @@ public class GreedyParty extends Party {
     }
 
     @Override
-    public void useStrategy(ConstituencyCollection constituencies,
-                            ArrayList<Operation> operations) {
+    public void makeCampaign(ConstituencyCollection constituencies,
+                             ArrayList<Operation> operations) {
 
         int price = 0;
         float maxWeightedSum = 0;

@@ -6,6 +6,9 @@ import elections.Constituency;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+/**
+ * Holds information of Elector
+ */
 public abstract class Elector {
 
     protected final String name;

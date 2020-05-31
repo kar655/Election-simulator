@@ -1,9 +1,6 @@
 package elections;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class HareNiemeyerMethod extends MandateCounter {
 
@@ -11,6 +8,7 @@ public class HareNiemeyerMethod extends MandateCounter {
         super("Hare-Niemeyer method");
     }
 
+    // Returns numbers after decimal point
     private float rest(float x) {
         return x - (float) Math.floor(x); // todo mozna castowac?
     }
@@ -23,7 +21,7 @@ public class HareNiemeyerMethod extends MandateCounter {
     @Override
     public void getMandates(Constituency constituency) {
         PriorityQueue<QuotientPair> priorityQueue = new PriorityQueue<>();
-        HashMap<String, Integer> mandates = new HashMap<>();
+        LinkedHashMap<String, Integer> mandates = new LinkedHashMap<>();
         int expectingMandates = constituency.getMPNumber();
         int allVotes = constituency.getElectorsNumber();
         int mandatesNumber = 0;

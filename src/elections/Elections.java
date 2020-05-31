@@ -4,8 +4,11 @@ import elections.electors.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
+/**
+ * Holds all data about elections
+ */
 public class Elections {
 
     private int constituenciesNumber;
@@ -13,9 +16,8 @@ public class Elections {
     private int changesNumber;
     private int characteristicsNumber;
 
-
     private Parser parser;
-    private HashMap<String, Party> parties = new HashMap<>();
+    private LinkedHashMap<String, Party> parties = new LinkedHashMap<>();
     private ArrayList<Operation> operations = new ArrayList<>();
     private ConstituencyCollection constituencies = new ConstituencyCollection();
     private ArrayList<MandateCounter> methods = new ArrayList<>() {
@@ -48,7 +50,8 @@ public class Elections {
             constituencies.add(new Constituency(i + 1,
                     Integer.parseInt(electorsNumbers[i]),
                     Integer.parseInt(electorsNumbers[i]) / 10, // todo
-                    characteristicsNumber));
+                    characteristicsNumber,
+                    parties.keySet()));
         }
     }
 
@@ -203,11 +206,12 @@ public class Elections {
     public void campaigns() {
         for (Party party : parties.values())
             while (party.canMakeCampaign())
-                party.useStrategy(constituencies, operations);
+                party.makeCampaign(constituencies, operations);
     }
 
     // Each Elector votes, result are printed including
     // candidates and number of votes they got
+    // and mandates each party got in that constituency
     public void simulate() {
 
         for (Constituency constituency : constituencies) {
@@ -223,23 +227,24 @@ public class Elections {
             for (Candidate candidate : constituency.getCandidates()) {
                 System.out.println(candidate);
             }
+
+            for (MandateCounter method : methods) {
+                System.out.println("\n" + method);
+                method.getMandates(constituency);
+            }
         }
 
         System.out.println();
     }
 
-    // Counts and prints mandates for each constituency and party
+    // Prints mandates for all constituencies for each party
     public void countMandates() {
+        System.out.println("\nMandates per all constituencies:\n\n");
+
         for (MandateCounter method : methods) {
-            System.out.println("\n\n" + method + "\n\n");
-
-            for (Constituency constituency : constituencies) {
-                method.getMandates(constituency);
-                System.out.println();
-            }
-
-            System.out.println("Mandates per all constituencies:");
+            System.out.println(method);
             method.printResult();
+            System.out.println();
         }
     }
 }

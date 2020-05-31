@@ -5,6 +5,9 @@ import elections.Constituency;
 
 import java.util.stream.Stream;
 
+/**
+ * Maximizes certain characteristic from party
+ */
 public class MaxPartyElector extends CharacteristicPartyElector {
 
     public MaxPartyElector(String name,

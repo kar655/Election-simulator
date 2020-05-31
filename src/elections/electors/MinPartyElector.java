@@ -5,6 +5,9 @@ import elections.Constituency;
 
 import java.util.stream.Stream;
 
+/**
+ * Minimizes certain characteristic from party
+ */
 public class MinPartyElector extends CharacteristicPartyElector {
 
     public MinPartyElector(String name,

@@ -1,6 +1,8 @@
 package elections;
 
-
+/**
+ * Represent vector of characteristic values
+ */
 public class Operation {
 
     protected int[] values;
@@ -15,11 +17,6 @@ public class Operation {
 
     public Operation(int size) {
         this.values = new int[size];
-    }
-
-    protected Operation(Operation op) {
-        this.values = op.values;
-        this.absSum = op.absSum;
     }
 
     // Returns ith element

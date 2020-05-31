@@ -2,6 +2,9 @@ package elections;
 
 import java.util.ArrayList;
 
+/**
+ * Class to holds information about party and its candidates
+ */
 public abstract class Party {
 
     protected String name;
@@ -14,24 +17,22 @@ public abstract class Party {
         this.budget = budget;
     }
 
+    // Adds new Candidate
     public void addCandidate(Candidate c) {
         candidates.add(c);
     }
 
+    // Return boolean if Party can make campaign
     public boolean canMakeCampaign() {
         return makeCampaign;
-    }
-
-    protected int operationCost(Operation operation,
-                                Constituency constituency) {
-        return operation.getAbsSum() * constituency.getElectorsNumber();
     }
 
     // todo protected abstract int operationValue
     //  i wystarczy jedna petla po wsyztskich stanach
 
-    public abstract void useStrategy(ConstituencyCollection constituencies,
-                                     ArrayList<Operation> operations);
+    // Makes new campaign according to party's strategy
+    public abstract void makeCampaign(ConstituencyCollection constituencies,
+                                      ArrayList<Operation> operations);
 
     @Override
     public String toString() {

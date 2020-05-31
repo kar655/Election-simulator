@@ -5,6 +5,9 @@ import elections.Constituency;
 
 import java.util.stream.Stream;
 
+/**
+ * Minimizes certain characteristic
+ */
 public class MinElector extends CharacteristicElector {
 
     public MinElector(String name, String surname, Constituency con,

@@ -17,8 +17,8 @@ public class MyParty extends Party {
      * choose constituency with most people that can still afford.
      */
     @Override
-    public void useStrategy(ConstituencyCollection constituencies,
-                            ArrayList<Operation> operations) {
+    public void makeCampaign(ConstituencyCollection constituencies,
+                             ArrayList<Operation> operations) {
 
         // values in Operation are from -10 to 10
         int value = random.nextInt(10 * operations.get(0).size() + 1);

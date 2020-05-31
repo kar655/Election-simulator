@@ -1,10 +1,10 @@
 package elections;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
+/**
+ * Method to calculate mandates using quotients, require step
+ */
 public abstract class QuotientMethod extends MandateCounter {
 
     protected final int step;
@@ -17,7 +17,7 @@ public abstract class QuotientMethod extends MandateCounter {
     @Override
     public void getMandates(Constituency constituency) {
         PriorityQueue<QuotientPair> priorityQueue = new PriorityQueue<>();
-        HashMap<String, Integer> mandates = new HashMap<>();
+        LinkedHashMap<String, Integer> mandates = new LinkedHashMap<>();
         int expectingMandates = constituency.getMPNumber();
         int mandatesNumber = 0;
 

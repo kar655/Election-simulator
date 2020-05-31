@@ -3,23 +3,29 @@ package elections;
 import elections.electors.Elector;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Set;
 
+/**
+ * Holds information about constituency
+ */
 public class Constituency extends Operation {
 
     protected final int MPNumber;
     protected final int electorsNumber;
     protected ArrayList<Integer> id = new ArrayList<>();
-    protected HashMap<String, Integer> votes = new HashMap<>();
+    protected LinkedHashMap<String, Integer> votes = new LinkedHashMap<>();
     protected ArrayList<Elector> electors = new ArrayList<>();
     protected ArrayList<Candidate> candidates = new ArrayList<>();
 
     public Constituency(int id, int electorsNumber, int MPNumber,
-                        int characteristicNumber) {
+                        int characteristicNumber,
+                        Set<String> partyNames) {
         super(characteristicNumber);
         this.id.add(id);
         this.electorsNumber = electorsNumber;
         this.MPNumber = MPNumber;
+        loadPartiesNames(partyNames);
     }
 
     protected Constituency(int electorsNumber, int MPNumber,
@@ -27,6 +33,11 @@ public class Constituency extends Operation {
         super(filter);
         this.electorsNumber = electorsNumber;
         this.MPNumber = MPNumber;
+    }
+
+    protected void loadPartiesNames(Set<String> names) {
+        for (String name : names)
+            votes.put(name, 0);
     }
 
     // Checks if this is Constituency with that id
@@ -64,7 +75,7 @@ public class Constituency extends Operation {
     }
 
     // Returns map of PartyNames and got votes in this constituency
-    public HashMap<String, Integer> getVotes() {
+    public LinkedHashMap<String, Integer> getVotes() {
         return votes;
     }
 

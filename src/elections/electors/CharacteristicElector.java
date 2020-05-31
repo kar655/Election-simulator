@@ -5,6 +5,9 @@ import elections.Constituency;
 
 import java.util.Comparator;
 
+/**
+ * Elector who has some extra characteristics like min, max, average
+ */
 public class CharacteristicElector extends Elector
         implements Comparator<Candidate> {
 

@@ -1,13 +1,16 @@
 package elections;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+
+import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Counts mandates
+ */
 public abstract class MandateCounter {
 
     protected String name;
-    protected HashMap<String, Integer> allMandates = new HashMap<>();
+    protected LinkedHashMap<String, Integer> allMandates = new LinkedHashMap<>();
 
     public MandateCounter(String name) {
         this.name = name;
@@ -18,17 +21,20 @@ public abstract class MandateCounter {
         return "Using " + name + " to count number of mandates:";
     }
 
-    public void printCurrentResult(HashMap<String, Integer> map) {
+    // Prints pairs (partyName, gotVotes)
+    protected void printCurrentResult(LinkedHashMap<String, Integer> map) {
         for (Map.Entry<String, Integer> entry : map.entrySet())
             System.out.println(
                     "(" + entry.getKey() + ", " + entry.getValue() + ")");
     }
 
+    // Prints all pairs (partyName, gotVotes)
     public void printResult() {
         printCurrentResult(allMandates);
     }
 
-    protected void mergeMandate(HashMap<String, Integer> map) {
+    // Merges currently added mandates with all mandates
+    protected void mergeMandate(LinkedHashMap<String, Integer> map) {
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
             if (allMandates.containsKey(entry.getKey()))
                 allMandates.put(entry.getKey(),
@@ -38,5 +44,6 @@ public abstract class MandateCounter {
         }
     }
 
+    // Calculates mandates for constituency
     public abstract void getMandates(Constituency constituency);
 }

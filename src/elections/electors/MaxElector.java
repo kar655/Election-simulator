@@ -5,6 +5,9 @@ import elections.Constituency;
 
 import java.util.stream.Stream;
 
+/**
+ * Maximizes certain characteristic
+ */
 public class MaxElector extends CharacteristicElector {
 
     public MaxElector(String name, String surname, Constituency con,

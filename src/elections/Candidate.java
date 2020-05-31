@@ -1,5 +1,8 @@
 package elections;
 
+/**
+ * Class for holding information about candidate
+ */
 public class Candidate {
 
     private final String name;
@@ -20,26 +23,32 @@ public class Candidate {
         this.characteristic = characteristic;
     }
 
+    // Returns constituency number
     public int getConstituencyNumber() {
         return constituencyNumber;
     }
 
+    // Returns list position
     public int getListPosition() {
         return listPosition;
     }
 
+    // Returns party name
     public String getPartyName() {
         return partyName;
     }
 
+    // todo zamienic na Operation
     public int getIthCharacteristics(int i) {
         return characteristic[i];
     }
 
+    // Increases vote counter
     public void increaseVotes() {
         this.gotVotes++;
     }
 
+    // Returns full name of candidate
     public String getName() {
         return name + " " + surname;
     }

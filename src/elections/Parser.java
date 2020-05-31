@@ -5,6 +5,9 @@ import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Reads and format lines from file
+ */
 public class Parser {
 
     private final Scanner scanner;

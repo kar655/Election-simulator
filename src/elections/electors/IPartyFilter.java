@@ -6,7 +6,9 @@ import java.util.stream.Stream;
 
 public interface IPartyFilter {
 
-    // Filters candidates from one Party
+    /**
+     * Filters candidates from one Party
+     */
     default Stream<Candidate> partyFilter(Stream<Candidate> candidates,
                                           String partyName) {
         return candidates

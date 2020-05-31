@@ -5,6 +5,9 @@ import elections.Constituency;
 
 import java.util.stream.Stream;
 
+/**
+ * Characteristic elector voting for certain Party
+ */
 public class CharacteristicPartyElector extends CharacteristicElector
         implements IPartyFilter {
 

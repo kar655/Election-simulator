@@ -5,6 +5,9 @@ import elections.Constituency;
 
 import java.util.stream.Stream;
 
+/**
+ * Chooses candidates from certain Party
+ */
 public class PartyElector extends Elector implements IPartyFilter {
 
     protected final String partyName;
