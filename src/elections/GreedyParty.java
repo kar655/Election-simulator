@@ -4,8 +4,47 @@ import java.util.ArrayList;
 
 public class GreedyParty extends Party {
 
+    private ArrayList<Integer> weightsSum = new ArrayList<>();
+
     public GreedyParty(String name, int budget) {
         super(name, budget);
+    }
+
+    // When adding new Candidate remembers its characteristic also
+    @Override
+    public void addCandidate(Candidate c) {
+        super.addCandidate(c);
+
+        for (int i = 0; i < c.size(); i++) {
+            if (weightsSum.size() < c.size())
+                weightsSum.add(c.get(i));
+            else
+                weightsSum.set(i, weightsSum.get(i) + c.get(i));
+        }
+    }
+
+    // Calculates sum of weighted sums for all candidates in this party for
+    // certain constituency
+    private long calculateWeightedSum(Constituency constituency) {
+        long output = 0;
+
+        for (int i = 0; i < weightsSum.size(); i++)
+            output += weightsSum.get(i) * constituency.getIthSum(i);
+
+        return output;
+    }
+
+    // Calculates sum of weighted sums for all candidates in this party for
+    // certain constituency also applies new characteristic from operation
+    private long calculateWeightedSum(Constituency constituency, Operation o) {
+        long output = 0;
+
+        for (int i = 0; i < weightsSum.size(); i++)
+            output += weightsSum.get(i)
+                    * (constituency.getIthSum(i)
+                    + o.get(i) * constituency.getAverageElectorsNumber());
+
+        return output;
     }
 
     @Override
@@ -13,34 +52,30 @@ public class GreedyParty extends Party {
                              ArrayList<Operation> operations) {
 
         int price = 0;
-        float maxWeightedSum = 0;
-        int conId = 0, operationId = 0;
+        long biggestDifference = 0;
+        int conId = -1, operationId = -1;
 
-        for (int i = 0; i < constituencies.size(); i++) {
-            for (int j = 0; j < operations.size(); j++) {
+        for (Constituency constituency : constituencies) {
+            for (int i = 0; i < operations.size(); i++) {
 
-                int tempPrice = constituencies.get(i).getElectorsNumber()
-                        * operations.get(j).getAbsSum();
+                long currentSum = calculateWeightedSum(constituency);
 
-                if (tempPrice <= budget)
-                    continue;
+                long newSum = calculateWeightedSum(constituency, operations.get(i));
 
-                float weightedSum = 0;
-                for (Candidate c : this.candidates) {
-                    weightedSum += constituencies.get(i)
-                            .constituencyWeightedSum(c);
-                }
+                int tempPrice = constituency.getElectorsNumber()
+                        * operations.get(i).getAbsSum();
 
-                if (weightedSum > maxWeightedSum) {
-                    maxWeightedSum = weightedSum;
+                if (newSum - currentSum > biggestDifference && tempPrice <= budget) {
+                    conId = constituency.getFirstId() - 1;
+                    operationId = i;
+                    biggestDifference = newSum - currentSum;
                     price = tempPrice;
-                    conId = i;
-                    operationId = j;
                 }
             }
         }
 
-        if (conId == 0 && operationId == 0)
+
+        if (conId == -1 && operationId == -1)
             makeCampaign = false;
         else {
             budget -= price;

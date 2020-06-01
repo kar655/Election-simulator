@@ -3,6 +3,7 @@ package elections;
 import elections.electors.Elector;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
@@ -13,15 +14,19 @@ public class Constituency extends Operation {
 
     protected final int MPNumber;
     protected final int electorsNumber;
+    protected int averageElectorsNumber;
     protected ArrayList<Integer> id = new ArrayList<>();
     protected LinkedHashMap<String, Integer> votes = new LinkedHashMap<>();
     protected ArrayList<Elector> electors = new ArrayList<>();
+    protected ArrayList<Integer> electorsWeightSum;
     protected ArrayList<Candidate> candidates = new ArrayList<>();
 
     public Constituency(int id, int electorsNumber, int MPNumber,
                         int characteristicNumber,
                         Set<String> partyNames) {
         super(characteristicNumber);
+        this.electorsWeightSum =
+                new ArrayList<>(Collections.nCopies(characteristicNumber, 0));
         this.id.add(id);
         this.electorsNumber = electorsNumber;
         this.MPNumber = MPNumber;
@@ -31,6 +36,8 @@ public class Constituency extends Operation {
     protected Constituency(int electorsNumber, int MPNumber,
                            int[] filter) {
         super(filter);
+        this.electorsWeightSum =
+                new ArrayList<>(Collections.nCopies(filter.length, 0));
         this.electorsNumber = electorsNumber;
         this.MPNumber = MPNumber;
     }
@@ -48,6 +55,12 @@ public class Constituency extends Operation {
     // Adds elector
     public void addElector(Elector elector) {
         electors.add(elector);
+
+        for (int i = 0; i < electorsWeightSum.size(); i++)
+            electorsWeightSum.set(i,
+                    electorsWeightSum.get(i) + elector.getIthValue(i));
+
+        averageElectorsNumber += elector.isAverage() ? 1 : 0;
     }
 
     // Adds candidate
@@ -64,6 +77,21 @@ public class Constituency extends Operation {
         }
 
         return output;
+    }
+
+    public int getIthSum(int i) {
+        // todo lepiej chyba getCharacteristic bo juz z filtrem
+        // sum of all electors value at postion 1 + filter for each elector
+        return electorsWeightSum.get(i) + get(i) * electorsNumber;
+    }
+
+    // Also updates sum of weights for all electors
+    @Override
+    public void add(Operation o) {
+        super.add(o); // add to filter
+        for (int i = 0; i < electorsWeightSum.size(); i++)
+            electorsWeightSum.set(i,
+                    electorsWeightSum.get(i) + averageElectorsNumber * o.get(i));
     }
 
     // Adds one vote for certain party in this constituency
@@ -92,6 +120,11 @@ public class Constituency extends Operation {
     // Return number of electors in this constituency
     public int getElectorsNumber() {
         return electorsNumber;
+    }
+
+    // Return number of average electors
+    public int getAverageElectorsNumber() {
+        return averageElectorsNumber;
     }
 
     // Return number of MP in this constituency

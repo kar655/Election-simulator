@@ -24,8 +24,8 @@ public class CharacteristicElector extends Elector
     // Comparator for Min/Max electors
     @Override
     public int compare(Candidate c1, Candidate c2) {
-        return c1.getIthCharacteristics(characteristics[0] - 1)
-                - c2.getIthCharacteristics(characteristics[0] - 1);
+        return c1.get(characteristics[0] - 1)
+                - c2.get(characteristics[0] - 1);
     }
 
     // Comparator for Average electors
@@ -38,23 +38,35 @@ public class CharacteristicElector extends Elector
         return characteristics[i] + constituency.get(i);
     }
 
+    // Return i-th characteristic value for average elector
+    @Override
+    public int getIthValue(int i) {
+        if (this.characteristics.length < 5)
+            return 0;
+        else
+            return characteristics[i];
+    }
+
     // Calculates weighted sum for AverageElector with Candidate c
     @Override
-    public float weightedSum(Candidate c) {
+    public int weightedSum(Candidate c) {
         // minimal number of characteristics is 5
         // so this elector is not Average
         if (this.characteristics.length < 5)
             return 0;
 
-        float sum = 0;
-        float weightSum = 0;
+        int sum = 0;
         // todo -1 ?
         for (int i = 0; i < characteristics.length; i++) {
-            weightSum += getCharacteristic(i);
             sum += getCharacteristic(i)
-                    * c.getIthCharacteristics(i);
+                    * c.get(i);
         }
 
-        return sum / weightSum;
+        return sum;
+    }
+
+    @Override
+    public boolean isAverage() {
+        return this.characteristics.length >= 5;
     }
 }

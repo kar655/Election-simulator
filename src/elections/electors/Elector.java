@@ -49,8 +49,18 @@ public abstract class Elector {
 
     // Weighted sum of characteristic needed in greedy party
     // is 0 if elector is not Average
-    public float weightedSum(Candidate c) {
+    public int weightedSum(Candidate c) {
         return 0;
+    }
+
+    // Return i-th characteristic value
+    public int getIthValue(int i) {
+        return 0;
+    }
+
+    // If this is average elector
+    public boolean isAverage() {
+        return false;
     }
 
     @Override

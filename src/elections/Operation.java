@@ -24,7 +24,7 @@ public class Operation {
         return values[i];
     }
 
-    // Returns absSum
+    // Returns absSum of initial values
     public int getAbsSum() {
         return this.absSum;
     }
@@ -35,6 +35,7 @@ public class Operation {
     }
 
     // Adds in place values from other Operation with same size
+    // Doesn't update absSum
     public void add(Operation o) {
         // todo max z?
         for (int i = 0; i < values.length; i++)
