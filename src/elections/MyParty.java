@@ -33,8 +33,6 @@ public class MyParty extends Party {
             }
         }
 
-        assert operationId != -1;
-
         for (Constituency constituency : constituencies) {
             int tempPrice = constituency.getElectorsNumber()
                     * operations.get(operationId).getAbsSum();

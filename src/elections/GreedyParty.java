@@ -10,7 +10,7 @@ public class GreedyParty extends Party {
         super(name, budget);
     }
 
-    // When adding new Candidate remembers its characteristic also
+    // When adding new Candidate also remembers its characteristic
     @Override
     public void addCandidate(Candidate c) {
         super.addCandidate(c);
@@ -56,9 +56,9 @@ public class GreedyParty extends Party {
         int conId = -1, operationId = -1;
 
         for (Constituency constituency : constituencies) {
-            for (int i = 0; i < operations.size(); i++) {
+            long currentSum = calculateWeightedSum(constituency);
 
-                long currentSum = calculateWeightedSum(constituency);
+            for (int i = 0; i < operations.size(); i++) {
 
                 long newSum = calculateWeightedSum(constituency, operations.get(i));
 

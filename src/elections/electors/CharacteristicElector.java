@@ -56,10 +56,9 @@ public class CharacteristicElector extends Elector
             return 0;
 
         int sum = 0;
-        // todo -1 ?
+
         for (int i = 0; i < characteristics.length; i++) {
-            sum += getCharacteristic(i)
-                    * c.get(i);
+            sum += getCharacteristic(i) * c.get(i);
         }
 
         return sum;

@@ -16,6 +16,7 @@ public class Constituency extends Operation {
     protected final int electorsNumber;
     protected int averageElectorsNumber;
     protected ArrayList<Integer> id = new ArrayList<>();
+    // <party name, got votes in this Constituency>
     protected LinkedHashMap<String, Integer> votes = new LinkedHashMap<>();
     protected ArrayList<Elector> electors = new ArrayList<>();
     protected ArrayList<Integer> electorsWeightSum;
@@ -42,6 +43,7 @@ public class Constituency extends Operation {
         this.MPNumber = MPNumber;
     }
 
+    // Load party names to keep previous order
     protected void loadPartiesNames(Set<String> names) {
         for (String name : names)
             votes.put(name, 0);
@@ -68,24 +70,13 @@ public class Constituency extends Operation {
         candidates.add(candidate);
     }
 
-    // Calculates sum of weighted sums of electors in this constituency
-    // for certain Candidate
-    public int constituencyWeightedSum(Candidate c) {
-        int output = 0;
-        for (Elector elector : electors) {
-            output += elector.weightedSum(c);
-        }
-
-        return output;
-    }
-
+    // Return sum of all electors value at position i
+    // + filter for each average elector
     public int getIthSum(int i) {
-        // todo lepiej chyba getCharacteristic bo juz z filtrem
-        // sum of all electors value at postion 1 + filter for each elector
-        return electorsWeightSum.get(i) + get(i) * electorsNumber;
+        return electorsWeightSum.get(i) + get(i) * averageElectorsNumber;
     }
 
-    // Also updates sum of weights for all electors
+    // Add operation and also updates sum of weights for all electors
     @Override
     public void add(Operation o) {
         super.add(o); // add to filter

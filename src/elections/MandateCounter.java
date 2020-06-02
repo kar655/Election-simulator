@@ -9,7 +9,7 @@ import java.util.Map;
  */
 public abstract class MandateCounter {
 
-    protected String name;
+    protected final String name;
     protected LinkedHashMap<String, Integer> allMandates = new LinkedHashMap<>();
 
     public MandateCounter(String name) {

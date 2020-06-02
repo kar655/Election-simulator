@@ -3,7 +3,6 @@ package elections.electors;
 import elections.Candidate;
 import elections.Constituency;
 
-import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -34,13 +33,10 @@ public abstract class Elector {
     // remembers candidate name
     public void giveVote() {
 
-        Optional<Candidate> optional =
-                voteFilter(constituency.getCandidates().stream()).findFirst();
-        assert optional.isPresent(); // todo
+        // every candidate must give vote
+        Candidate candidate =
+                voteFilter(constituency.getCandidates().stream()).findFirst().get();
 
-        Candidate candidate = optional.get();
-
-        // return optional.get().getListPosition();
         candidate.increaseVotes();
         this.candidateName = candidate.getName();
 

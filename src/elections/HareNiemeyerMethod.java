@@ -10,7 +10,7 @@ public class HareNiemeyerMethod extends MandateCounter {
 
     // Returns numbers after decimal point
     private float rest(float x) {
-        return x - (float) Math.floor(x); // todo mozna castowac?
+        return x - (float) Math.floor(x);
     }
 
     private float calculate(float expectingMandates,
@@ -29,7 +29,6 @@ public class HareNiemeyerMethod extends MandateCounter {
         for (Map.Entry<String, Integer> entry
                 : constituency.getVotes().entrySet()) {
 
-            // todo expectingMandates / allVotes === 1/10
             int floorMandates = entry.getValue() * expectingMandates / allVotes;
             mandatesNumber += floorMandates;
             mandates.put(entry.getKey(), floorMandates);
@@ -47,7 +46,6 @@ public class HareNiemeyerMethod extends MandateCounter {
             mandates.put(temp.second(), mandates.get(temp.second()) + 1);
         }
 
-        assert mandatesNumber == expectingMandates;
         printCurrentResult(mandates);
         mergeMandate(mandates);
     }

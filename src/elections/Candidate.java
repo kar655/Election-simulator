@@ -50,6 +50,6 @@ public class Candidate extends Operation {
     @Override
     public String toString() {
         return getName() + " " + partyName + " "
-                + listPosition + " " + gotVotes;
+                + listPosition + " got " + gotVotes + " votes";
     }
 }

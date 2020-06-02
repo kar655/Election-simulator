@@ -49,7 +49,7 @@ public class Elections {
         for (int i = 0; i < constituenciesNumber; i++) {
             constituencies.add(new Constituency(i + 1,
                     Integer.parseInt(electorsNumbers[i]),
-                    Integer.parseInt(electorsNumbers[i]) / 10, // todo
+                    Integer.parseInt(electorsNumbers[i]) / 10,
                     characteristicsNumber,
                     parties.keySet()));
         }
@@ -95,7 +95,6 @@ public class Elections {
 
     // Reads one Candidate
     private void readCandidate(String[] line) {
-        // Konrad K 1 PartiaA 1 -72 -73 19 -83 2
         int constituencyNumber = Integer.parseInt(line[2]);
 
         Candidate candidate = new Candidate(line[0],
