@@ -1,6 +1,7 @@
 package elections;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Class to holds information about party and its candidates
@@ -26,9 +27,6 @@ public abstract class Party {
     public boolean canMakeCampaign() {
         return makeCampaign;
     }
-
-    // todo protected abstract int operationValue
-    //  i wystarczy jedna petla po wsyztskich stanach
 
     // Makes new campaign according to party's strategy
     public abstract void makeCampaign(ConstituencyCollection constituencies,

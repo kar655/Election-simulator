@@ -39,7 +39,7 @@ public class MyParty extends Party {
 
             if (tempPrice <= budget && tempPrice > price) {
                 price = tempPrice;
-                conId = constituency.getFirstId();
+                conId = constituency.getFirstId() - 1;
             }
         }
 
