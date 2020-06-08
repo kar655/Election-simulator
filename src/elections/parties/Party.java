@@ -5,7 +5,6 @@ import elections.ConstituencyCollection;
 import elections.Operation;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 /**
  * Class to holds information about party and its candidates

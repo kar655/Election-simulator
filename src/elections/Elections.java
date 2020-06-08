@@ -25,16 +25,13 @@ public class Elections {
     private LinkedHashMap<String, Party> parties = new LinkedHashMap<>();
     private ArrayList<Operation> operations = new ArrayList<>();
     private ConstituencyCollection constituencies = new ConstituencyCollection();
-    private ArrayList<MandateCounter> methods = new ArrayList<>() {
-        {
-            add(new DHondtMethod());
-            add(new SaintLagueMethod());
-            add(new HareNiemeyerMethod());
-        }
-    };
+    private ArrayList<MandateCounter> methods = new ArrayList<>();
 
     public Elections(Parser parser) {
         this.parser = parser;
+        this.methods.add(new DHondtMethod());
+        this.methods.add(new SaintLagueMethod());
+        this.methods.add(new HareNiemeyerMethod());
     }
 
     // Reads four basic parameters
@@ -194,7 +191,7 @@ public class Elections {
         for (Constituency constituency : constituencies) {
             for (int i = 0; i < constituency.getElectorsNumber(); i++) {
                 // one more was read when reading candidates
-                if (!once && constituency.sameId(1)) {
+                if (!once) {
                     once = true;
                     continue;
                 }
@@ -242,7 +239,7 @@ public class Elections {
     }
 
     // Prints mandates for all constituencies for each party
-    public void countMandates() {
+    public void printMandates() {
         System.out.println("\nMandates per all constituencies:\n\n");
 
         for (MandateCounter method : methods) {

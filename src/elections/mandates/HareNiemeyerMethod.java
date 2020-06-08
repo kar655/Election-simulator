@@ -35,10 +35,9 @@ public class HareNiemeyerMethod extends MandateCounter {
             mandatesNumber += floorMandates;
             mandates.put(entry.getKey(), floorMandates);
 
-            priorityQueue.add(
-                    new QuotientPair(
-                            rest(calculate(expectingMandates, allVotes, entry.getValue())),
-                            entry.getKey()));
+            priorityQueue.add(new QuotientPair(
+                    rest(calculate(expectingMandates, allVotes, entry.getValue())),
+                    entry.getKey()));
         }
 
         while (mandatesNumber < expectingMandates) {

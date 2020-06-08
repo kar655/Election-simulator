@@ -29,11 +29,6 @@ public class ConstituencyCollection implements Iterable<Constituency> {
         constituencies.set(i, constituency);
     }
 
-    // Returns size
-    public int size() {
-        return constituencies.size();
-    }
-
     @Override
     public Iterator<Constituency> iterator() {
         return new Iterator<>() {

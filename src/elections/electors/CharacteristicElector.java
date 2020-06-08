@@ -8,7 +8,7 @@ import java.util.Comparator;
 /**
  * Elector who has some extra characteristics like min, max, average
  */
-public class CharacteristicElector extends Elector
+public abstract class CharacteristicElector extends Elector
         implements Comparator<Candidate> {
 
     protected final int[] characteristics;
