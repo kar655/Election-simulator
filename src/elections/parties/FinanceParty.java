@@ -1,4 +1,8 @@
-package elections;
+package elections.parties;
+
+import elections.Constituency;
+import elections.ConstituencyCollection;
+import elections.Operation;
 
 import java.util.ArrayList;
 
@@ -38,9 +42,11 @@ public abstract class FinanceParty extends Party {
         if (conId == -1 && operationId == -1)
             makeCampaign = false;
         else {
-            budget -= price;
-            // update filter in Constituency
-            constituencies.get(conId).add(operations.get(operationId));
+            int n = budget / price;
+            budget -= n * price;
+
+            // update filter in Constituency n times
+            constituencies.get(conId).add(operations.get(operationId), n);
         }
     }
 }

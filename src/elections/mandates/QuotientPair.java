@@ -1,4 +1,4 @@
-package elections;
+package elections.mandates;
 
 /**
  * Holds quotient information, implements Comparable

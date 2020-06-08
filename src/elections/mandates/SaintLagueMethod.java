@@ -1,4 +1,4 @@
-package elections;
+package elections.mandates;
 
 public class SaintLagueMethod extends QuotientMethod {
     public SaintLagueMethod() {

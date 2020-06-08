@@ -1,6 +1,11 @@
 package elections;
 
 import elections.electors.*;
+import elections.mandates.DHondtMethod;
+import elections.mandates.HareNiemeyerMethod;
+import elections.mandates.MandateCounter;
+import elections.mandates.SaintLagueMethod;
+import elections.parties.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;

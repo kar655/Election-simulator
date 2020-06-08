@@ -85,6 +85,15 @@ public class Constituency extends Operation {
                     electorsWeightSum.get(i) + averageElectorsNumber * o.get(i));
     }
 
+    // Same as add(Operation o) but n times
+    public void add(Operation o, int n) {
+        for (int i = 0; i < electorsWeightSum.size(); i++) {
+            values[i] += o.get(i) * n;
+            electorsWeightSum.set(i, electorsWeightSum.get(i) +
+                    averageElectorsNumber * o.get(i) * n);
+        }
+    }
+
     // Adds one vote for certain party in this constituency
     public void giveVote(String partyName) {
         if (votes.containsKey(partyName))

@@ -1,4 +1,4 @@
-package elections;
+package elections.mandates;
 
 public class DHondtMethod extends QuotientMethod {
     public DHondtMethod() {

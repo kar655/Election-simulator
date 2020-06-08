@@ -1,4 +1,6 @@
-package elections;
+package elections.mandates;
+
+import elections.Constituency;
 
 import java.util.*;
 

@@ -1,4 +1,8 @@
-package elections;
+package elections.parties;
+
+import elections.Candidate;
+import elections.ConstituencyCollection;
+import elections.Operation;
 
 import java.util.ArrayList;
 import java.util.Comparator;

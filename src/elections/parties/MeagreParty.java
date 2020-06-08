@@ -1,4 +1,4 @@
-package elections;
+package elections.parties;
 
 
 public class MeagreParty extends FinanceParty {
