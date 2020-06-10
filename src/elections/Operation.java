@@ -34,10 +34,14 @@ public class Operation {
         return values.length;
     }
 
-    // Adds in place values from other Operation with same size
+    // Adds in place values from other Operation with same size n times
     // Doesn't update absSum
-    public void add(Operation o) {
+    public void add(Operation o, int n) {
         for (int i = 0; i < values.length; i++)
-            values[i] += o.get(i);
+            values[i] += o.get(i) * n;
+    }
+
+    public void add(Operation o) {
+        add(o, 1);
     }
 }

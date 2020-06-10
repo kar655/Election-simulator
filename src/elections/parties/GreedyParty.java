@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class GreedyParty extends Party {
 
+    // Sum of weight of all candidates in this Party
     private ArrayList<Integer> weightsSum = new ArrayList<>();
 
     public GreedyParty(String name, int budget) {

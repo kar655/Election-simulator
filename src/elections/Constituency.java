@@ -19,6 +19,7 @@ public class Constituency extends Operation {
     // <party name, got votes in this Constituency>
     protected LinkedHashMap<String, Integer> votes = new LinkedHashMap<>();
     protected ArrayList<Elector> electors = new ArrayList<>();
+    // Initial sum of weights of all electors in this Constituency
     protected ArrayList<Integer> electorsWeightSum;
     protected ArrayList<Candidate> candidates = new ArrayList<>();
 
@@ -58,11 +59,13 @@ public class Constituency extends Operation {
     public void addElector(Elector elector) {
         electors.add(elector);
 
-        for (int i = 0; i < electorsWeightSum.size(); i++)
-            electorsWeightSum.set(i,
-                    electorsWeightSum.get(i) + elector.getIthValue(i));
+        if (elector.isAverage()) {
+            for (int i = 0; i < electorsWeightSum.size(); i++)
+                electorsWeightSum.set(i,
+                        electorsWeightSum.get(i) + elector.getIthValue(i));
 
-        averageElectorsNumber += elector.isAverage() ? 1 : 0;
+            averageElectorsNumber++;
+        }
     }
 
     // Adds candidate
@@ -73,25 +76,8 @@ public class Constituency extends Operation {
     // Return sum of all electors value at position i
     // + filter for each average elector
     public int getIthSum(int i) {
-        return electorsWeightSum.get(i) + get(i) * averageElectorsNumber;
-    }
-
-    // Add operation and also updates sum of weights for all electors
-    @Override
-    public void add(Operation o) {
-        super.add(o); // add to filter
-        for (int i = 0; i < electorsWeightSum.size(); i++)
-            electorsWeightSum.set(i,
-                    electorsWeightSum.get(i) + averageElectorsNumber * o.get(i));
-    }
-
-    // Same as add(Operation o) but n times
-    public void add(Operation o, int n) {
-        for (int i = 0; i < electorsWeightSum.size(); i++) {
-            values[i] += o.get(i) * n;
-            electorsWeightSum.set(i, electorsWeightSum.get(i) +
-                    averageElectorsNumber * o.get(i) * n);
-        }
+        return Math.min(Math.max(electorsWeightSum.get(i) + get(i) * averageElectorsNumber,
+                -100 * averageElectorsNumber), 100 * averageElectorsNumber);
     }
 
     // Adds one vote for certain party in this constituency

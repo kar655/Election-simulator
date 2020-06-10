@@ -35,7 +35,8 @@ public abstract class CharacteristicElector extends Elector
 
     // I-th characteristic with filter from constituency
     protected int getCharacteristic(int i) {
-        return characteristics[i] + constituency.get(i);
+        return Math.min(
+                Math.max(characteristics[i] + constituency.get(i), -100), 100);
     }
 
     // Return i-th characteristic value for average elector
